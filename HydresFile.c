@@ -42,7 +42,7 @@ field* fieldFromFile(const char* filename)
     return terrain;
 }
 
-void fieldToFile(const char* filename, field* terrain)
+void fieldToFile(const char* filename, const field* terrain)
 {
     FILE* fichier = fopen(filename,"w+");
     int size_x = terrain->fsize_x, size_y = terrain->fsize_y, i, j;
