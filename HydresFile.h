@@ -6,7 +6,7 @@
 
 
 field* fieldFromFile(const char*);
-void fieldToFile(const char*, field*);
+void fieldToFile(const char*, const field*);
 
 
 #endif // HYDRESFILE_H_INCLUDED
