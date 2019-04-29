@@ -40,3 +40,6 @@ field* fieldFuse(const field* source, const field* aColler, int pos_x, int pos_y
 Cette fonction renvoie un écran fusionné depuis une source (la source) et un élément à coller (pas la source)
 à partir des coordonnées pos_x et pos_y de la source.
 L'écran doit être détruit après utilisation.
+
+field* fieldFuseST(const field* source, const field* aColler, int pos_x, int pos_y);
+Cette fonction exécute la même opération que fieldFuse, mais les parties ' ' de l'élément à coller ne sont pas collées.
