@@ -3,7 +3,7 @@
 #include "HydresCLI.h"
 
 field* fieldFuse(const field* source, const field* aColler, const int pos_x, const int pos_y);
-
+field* fieldFuseST(const field* source, const field* aColler, const int pos_x, const int pos_y);
 
 
 
