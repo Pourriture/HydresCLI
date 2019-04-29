@@ -3,7 +3,7 @@ HYDRES COMMAND LINE INTERFACE - INTERFACE AVEC LA CONSOLE WINDOWS
 Ceci est une documentation brève et incomplète.
 
 
-void fieldInitialize(field*, int x, int y);
+field* fieldInitialize(field*, int x, int y);
 prend comme paramètres un pointeur vers un écran (field),
 lui attribue une taille et une existence, puis l'initialise.
 La constante d'initialisation est défine par DEFAULT_F_PART_CHAR et DEFAULT_F_PART_COLOR.
