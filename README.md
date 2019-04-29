@@ -4,7 +4,7 @@ Ceci est une documentation brève et incomplète.
 
 
 field* fieldInitialize(field*, int x, int y);
-prend comme paramètres un pointeur vers un écran (field),
+renvoie un pointeur vers un écran (field),
 lui attribue une taille et une existence, puis l'initialise.
 La constante d'initialisation est défine par DEFAULT_F_PART_CHAR et DEFAULT_F_PART_COLOR.
 en pratique, beaucoup de fonctions initialisent automatiquement un écran avant de le modifier et de le rencoyer
