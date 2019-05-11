@@ -1,6 +1,6 @@
 #include "HydresFuse.h"
 
-field* fieldFuse(const field* source, const field* aColler, const int pos_x, const int pos_y)
+field* fieldFuse(const field* source, const field* aColler, int pos_x, int pos_y)
 {
 
     field* resultat = NULL;
@@ -29,6 +29,7 @@ field* fieldFuse(const field* source, const field* aColler, const int pos_x, con
     return resultat;
 }
 
+
 field* fieldFuseST(const field* source, const field* aColler, const int pos_x, const int pos_y)
 {
 
@@ -53,11 +54,45 @@ field* fieldFuseST(const field* source, const field* aColler, const int pos_x, c
                 resultat->fbody[ib][jb].caractere = aColler->fbody[i][j].caractere;
                 resultat->fbody[ib][jb].color = aColler->fbody[i][j].color;
             }
-                
+
         }
     }
 
 
 
+    return resultat;
+}
+
+field* fieldAppendX(const field* sc1, const field* sc2)
+{
+    field* fuseSource = fieldInitialize(sc1->fsize_x + sc2->fsize_x,((sc1->fsize_y >= sc2->fsize_y) * sc1->fsize_y) + ((sc1->fsize_y < sc2->fsize_y) * sc2->fsize_y));
+    field* fuseT1 = fieldFuse(fuseSource, sc1, 0, 0);
+    field* resultat = fieldFuse(fuseT1, sc2, sc1->fsize_x, 0);
+    fieldDestroy(fuseSource);
+    fieldDestroy(fuseT1);
+    return resultat;
+}
+
+field* fieldAppendY(const field* sc1, const field* sc2)
+{
+    field* fuseSource = fieldInitialize(((sc1->fsize_x >= sc2->fsize_x) * sc1->fsize_x) + ((sc1->fsize_x < sc2->fsize_x) * sc2->fsize_x),sc1->fsize_y + sc2->fsize_y);
+    field* fuseT1 = fieldFuse(fuseSource, sc1, 0, 0);
+    field* resultat = fieldFuse(fuseT1, sc2, 0, sc1->fsize_y);
+    fieldDestroy(fuseSource);
+    fieldDestroy(fuseT1);
+    return resultat;
+}
+
+field* fieldAppend(const field* sc1, const field* sc2, const char choix)
+{
+    field* resultat = NULL;
+    if ((choix == 'X') || (choix == 'x'))
+    {
+        resultat = fieldAppendX(sc1, sc2);
+    }
+    else
+    {
+        resultat = fieldAppendY(sc1, sc2);
+    }
     return resultat;
 }

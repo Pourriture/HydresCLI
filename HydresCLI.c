@@ -24,7 +24,7 @@ field* fieldInitialize(const int size_x, const int size_y)
 
     f_part* ptrToFPart = NULL;
     terrain->fbody = malloc(sizeof(ptrToFPart) * size_x);
-    
+    //printf("Entry point: fbody located at %p\n",terrain->fbody);
     if (terrain->fbody == NULL)
     {
         fprintf(stdout,"Runtime error : out of memory during field initialization\n");
@@ -49,7 +49,7 @@ field* fieldInitialize(const int size_x, const int size_y)
         {
             terrain->fbody[i][j].caractere = DEFAULT_F_PART_CHAR;
             terrain->fbody[i][j].color = DEFAULT_F_PART_COLOR;
-            
+            //printf("initialized [%d][%d] of terrain : %c at address %p, accessed from %p\n",i,j,terrain->fbody[i][j].caractere,&terrain->fbody[i][j],terrain->fbody[i]);
         }
     }
 
@@ -92,12 +92,14 @@ void fieldDisplay(const field* terrain)
     }
 }
 
+/*
 field* fieldReInitialize(field* terrain, const int size_x, const int size_y)
 {
     fieldDestroy(terrain);
     terrain = fieldInitialize(size_x, size_y);
     return terrain;
 }
+*/
 
 field* fieldCopy(const field* source)
 {
@@ -119,5 +121,5 @@ field* fieldCopy(const field* source)
     }
     return target;
 }
-// yolooo
+
 
