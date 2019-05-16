@@ -44,3 +44,10 @@ void fieldPaintPart(field* terrain, const int color, const int s_x, const int e_
         }
     }
 }
+
+field* fieldCPaintPart(const field* source, const int color, const int s_x, const int e_x, const int s_y, const int e_y)
+{
+    field* resultat = fieldCopy(source);
+    fieldPaintPart(resultat, color, s_x, e_x, s_y, e_y);
+    return resultat;
+}

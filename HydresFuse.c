@@ -1,6 +1,6 @@
 #include "HydresFuse.h"
 
-field* fieldFuse(const field* source, const field* aColler, int pos_x, int pos_y)
+field* fieldFuse(const field* source, const field* aColler, const int pos_x, const int pos_y)
 {
 
     field* resultat = NULL;
