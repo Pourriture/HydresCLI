@@ -27,7 +27,7 @@ void fieldPaintPart(field* terrain, const int color, const int s_x, const int e_
 {
     if ((s_x < 0) || (s_y < 0) || (e_x >= terrain->fsize_x) || (e_y >= terrain->fsize_y))
     {
-        fprintf(stdout,"Error: fieldACDisplay miscalled, either:\n");
+        fprintf(stdout,"Error: fieldPaintPart miscalled, either:\n");
         fprintf(stdout,"s_x %d < 0\n",s_x);
         fprintf(stdout,"s_y %d < 0\n",s_y);
         fprintf(stdout,"e_x %d >= terrain->fsize_x %d\n",e_x,terrain->fsize_x);

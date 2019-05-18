@@ -5,8 +5,8 @@ void fsPaste(field* terrain, char* chaine, int x, int y, int color)
     int i;
     for(i = 0 ; chaine[i] != '\0' ; i++)
     {
-        terrain->fbody[x+i][y].caractere = chaine[i];
-        terrain->fbody[x+i][y].color = color;
+        terrain->fbody[x][y+i].caractere = chaine[i];
+        terrain->fbody[x][y+i].color = color;
     }
 
 }

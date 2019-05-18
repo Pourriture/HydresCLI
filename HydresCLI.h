@@ -8,32 +8,22 @@ typedef struct field field;
 #define DEFAULT_F_PART_COLOR 2
 
 #define DEBUG
-/**
-HYDRES COMMAND LINE INTERFACE - INTERFACE AVEC LA CONSOLE WINDOWS
 
-
-field* fieldInitialize(int x, int y);
-renvoie un pointeur vers un écran (field),
-lui attribue une taille et une existence, puis l'initialise.
-La constante d'initialisation est défine par DEFAULT_F_PART_CHAR et DEFAULT_F_PART_COLOR.
-
-void fieldDestruction(*field);
-Une fois l'écran utilisé, il faut le détruire pour libérer l'espace qu'il prenait en mémoire.
-fieldDestruction ne prend qu'un seul argument : un pointeur vers l'écran à détruire.
-
-void fieldDisplay(field*);
-Affiche un écran entier (stdout).
-
-field* fieldCopy(field* source);
-
-field* fieldReInitialize(field* terrain, int size_x, int size_y);
-*/
-
-
+/** Renvoie un pointeur vers un écran (field), lui attribue une taille et un tableau bidimensionnel.
+la constante d'initialisation de chacune des cellules est défine par DEFAULT_F_PART_CHAR et DEFAULT_F_PART_COLOR. */
 field* fieldInitialize(const int x, const int y);
+
+/** Une fois l'écran utilisé, il faut le détruire pour libérer l'espace qu'il prenait en mémoire. Cette fonction détruit l'écran fourni en argument. */
 void fieldDestroy(field*);
+
+
+/** Affiche un écran entier sur stdout */
 void fieldDisplay(const field*);
+
+/** Renvoie une copie de l'écran envoyé en argument */
 field* fieldCopy(const field* source);
+
+
 //field* fieldReInitialize(field* terrain, const int size_x, const int size_y);
 
 //partie d'un field : comporte le caractère et sa couleur
