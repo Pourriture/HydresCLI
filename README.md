@@ -2,7 +2,9 @@ DOCUMENTATION POUR L'INTERFACE AVEC LA CONSOLE WINDOWS HYDRES
 
 
 Fichier principal : HydresCLI
+
 But : HydresCLI est la brique de base du fonctionnement de Hydres. Les fonctions présentes dans HydresCLI.h et HydresCLI.c sont les plus basiques, et sont capitales au fonctionnement de toutes les autres fonctions de Hydres. En particulier, HydresCLI définit de quoi est fait un écran, comment est-il créé, comment peut-on interagir de manière simple avec lui, et comment peut-on le supprimer.
+
 
 
 Structures :
@@ -30,17 +32,22 @@ Conserver la hauteur et la largeur d'un écran dans la variable même est utile 
 
 Fonctions :
 
-Pour initialiser un écran, on utilisera la fonction : (pour rappel, le mot-clef const avant le type d'une variable dans le prototype d'une fonction signifie que la variable ne sera pas modifiée durant le fonctionnement de la fonction)
+Pour initialiser un écran, on utilisera la fonction : 
 
 field* fieldInitialize(const int size_x, const int size_y);
 
+(pour rappel, le mot-clef const avant le type d'une variable dans le prototype d'une fonction signifie que la variable ne sera pas modifiée durant le fonctionnement de la fonction)
+
+
 Cette fonction allouera un espace dédié à un écran, lui inscrira en mémoire sa hauteur et sa largeur, et renverra un pointeur vers cet écran. Par exemple, field* ecran = fieldInitalize(4, 5) intialise un écran de largeur 4 et de hauteur 5.
-L'écran sera initialisé suivant les constantes de précompilateur inscrites dans le fichier HydresCLI.h. Ces constantes sont définies au début du fichier :
+L'écran sera initialisé suivant les constantes de précompilateur inscrites dans le fichier HydresCLI.h. Ces constantes sont définies au début du fichier HydresCLI.h :
 
 #define DEFAULT_F_PART_CHAR 'I'
+
 #define DEFAULT_F_PART_COLOR 2
 
-On notera que DEFAULT_F_PART_COLOR est ici un nombre. Ce nombre correspond au vert pour Windows ; pour plus de détails, veuillez consulter la partie de la documentation relative à HydresColor.h.
+
+On notera que DEFAULT_F_PART_COLOR est ici un nombre. Ce nombre correspond à "couleur du texte : vert" pour Windows ; pour plus de détails, veuillez consulter la partie de la documentation relative à HydresColor.h.
 Une fois un écran créé, il faut toujours le supprimer manuellement. Ne pas le supprimer expose le programme à des fuites de mémoire.
 On supprimera un écran initialisé en appelant simplement la fonction fieldDestroy :
 
@@ -74,7 +81,7 @@ soit :
 
 ecran3 = fieldCopy(ecran1)
 
-Vous noterez qu'on n'a pas besoin d'initialiser ecran3 avec fieldInitialize lorsqu'on procède ainsi ! C'est parce que fieldCopy appelle fieldInitialise lors de son fonctionnement. Pour cette raison, on s'en servira probablement peu ; mais il est toujours bon de savoir qu'elle existe et à quoi elle sert.
+Vous noterez qu'on n'a pas besoin d'initialiser ecran3 avec fieldInitialize lorsqu'on procède ainsi ! C'est parce que fieldCopy appelle fieldInitialize lors de son fonctionnement. La plupart des fonctions renvoyant un field* procèdent ainsi. Pour cette raison, on se servira peu de fieldInitialize ; mais il est toujours bon de savoir qu'elle existe et à quoi elle sert.
 Lors de la copie, fieldCopy copie simplement un par un les attributs de chaque cellule de l'écran source dans un écran résultat qu'elle renvoie.
 
 La dernière fonction présente dans les fichiers HydresCLI.h et HydresCLI.c est fieldDisplay. Elle permet d'afficher simplement un écran entier, sans couleurs.
@@ -84,6 +91,7 @@ void fieldDisplay(const field*)
 Le caractère dans chaque cellule est envoyé sur la console, sans formattage.
 
 Code exemple :
+
 int main()
 {
 	field* ecran = fieldInitialize(5,5);
@@ -99,6 +107,7 @@ int main()
 
 
 Fichier : HydresFile
+
 But : HydresFile permet de sauvegarder un écran dans un fichier (une seule couleur), et de récupérer un écran depuis en fichier (une seule couleur).
 
 
@@ -128,10 +137,11 @@ La fonction utilise le même format que fieldToFile.
 
 
 Fichier: HydresFuse
+
 But : Permettre de coller un écran dans un autre écran plus grand ou d'apposer deux écrans l'un contre l'autre.
 
-field* fieldFuse(const field* source, const* field aColler, const int posx, const int posy)
-field* fieldFuseST(const field* source, const* field aColler, const int posx, const int posy)
+field* fieldFuse(const field* source, const* field aColler, const int posx, const int posy);
+field* fieldFuseST(const field* source, const* field aColler, const int posx, const int posy);
 
 fieldFuse prend deux écrans, la source et l'élément à coller. Les paramètres entiers posx et posy servent à déterminer la position de départ de la fusion (l'élément aColler sera collé à la source à partir des coordonnées (posx ; posy). L'élément à coller doit être plus petit que la source et ne doit pas dépasser des bords.
 fieldFuse colle le caractère et la couleur de tous les éléments de aColler dans leur nouvelle position sur une copie de l'écran source, puis renvoie ce nouvel écran (qui doit donc être supprimé après utilisation).
@@ -150,6 +160,7 @@ Cette fonction appelle fieldAppendX ou fieldAppendY selon si le troisième param
 
 
 Fichier : HydresColor
+
 But : Gérer les couleurs d'un écran
 
 void fieldPaintPart(field*, const int color, const int s_x, const int e_x, const int s_y, const int e_y);
