@@ -16,7 +16,7 @@ field* fieldAppendX(const field* left, const field* right);
 /** colle deux écrans à la verticale et renvoie le résultat */
 field* fieldAppendY(const field* up, const field* down);
 
-/** colle deux écrans à l'horizontale ou à la verticale selon que le troisième paramètre soit X ou Y */
+/** colle deux écrans à l'horizontale ou à la verticale selon que le troisième paramètre soit APPEND_HORIZONTAL ou APPEND_VERTICAL */
 field* fieldAppend(const field*, const field*, const char);
 
 #endif // HYDRESFUSE_H_INCLUDED

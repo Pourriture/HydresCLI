@@ -67,6 +67,56 @@ void fieldACDisplay(const field* terrain, const int s_posx, const int e_posx, co
         fieldCDisplay(terrain, s_posx, e_posx, s_posy, e_posy);
     }
 
+    int curCol = terrain->fbody[s_posx][s_posy].color, i, j, k = 0;
+    char* curStr = malloc(sizeof(char) * (4 * (e_posx - s_posx) + 2));
+    SetConsoleTextAttribute(consoleSc, curCol);
+
+    for (j = s_posy ; j <= e_posy ; j++)
+    {
+        for (i = s_posx ; i <= e_posx ; i++)
+        {
+            if((terrain->fbody[i][j].color != curCol) && (k != 0))
+            {
+                curStr[k] = '\0';
+                fputs(curStr,stdout);
+                free(curStr);
+                curStr = NULL;
+                k = 0;
+                curCol = terrain->fbody[i][j].color;
+                SetConsoleTextAttribute(consoleSc, curCol);
+                curStr = malloc(sizeof(char) * 4 * (e_posx - s_posx));
+            }
+            curStr[k] = terrain->fbody[i][j].caractere;
+            k++;
+            if (k >= 4 * (e_posx - s_posx))
+            {
+                //curStr = realloc(curStr,sizeof(char) * (4 * (e_posx - s_posx + 3)));
+                curStr[k] = '\0';
+                fputs(curStr, stdout);
+                free(curStr);
+                curStr = NULL;
+                k = 0;
+                curCol = terrain->fbody[i][j].color;
+                SetConsoleTextAttribute(consoleSc, curCol);
+                curStr = malloc(sizeof(char) * 4 * (e_posx - s_posx));
+            }
+        }
+        curStr[k] = '\n';
+        k++;
+    }
+    if (k != 0)
+    {
+        curStr[k] = '\0';
+        fputs(curStr, stdout);
+    }
+    if (!curStr)
+        free(curStr);
+
+
+
+    printf("advDisplay successfully finished.\n");
+
+    /*
     int i, j;
     for (j = s_posy ; j <= e_posy ; j++)
     {
@@ -77,6 +127,8 @@ void fieldACDisplay(const field* terrain, const int s_posx, const int e_posx, co
         }
         putc('\n',stdout);
     }
+
+    */
 }
 
 void fieldADisplay(const field* terrain)

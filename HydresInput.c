@@ -75,7 +75,6 @@ int CharGet()
         case -32:
         case 224:
             getch();
-            break;
         case 1 ... 7:
         case 9 ... 12:
         case 14 ... 26:

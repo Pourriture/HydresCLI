@@ -17,14 +17,18 @@
 #define TABKEY 9
 
 
-// Hydres utilise pour le moment Conio pour prendre en compte les entrées de l'utilisateur
+// Hydres utilise pour le moment ConIO pour prendre en compte les entrées de l'utilisateur
 
+/** appelle getch() et renvoie UPKEY, DOWNKEY, LEFTKEY, RIGHTKEY suivant l'entrée de l'utilisateur */
 int ArrowGet();
 
+/** renvoie ce qui a été renvoyé par l'utilisateur */
 int KeyGet();
 
+/** renvoie le premier caractère qui sera pressé par l'utilisateur */
 int CharGet();
 
+/** renvoie une chaîne de caractères entrée par l'utilisateur, affichée pendant l'input sur l'écran de manière dynamique. énormément de latence. préférez scanf ou fgets */
 char* fieldInputString(field*, int posx, int posy, int length);
 
 

@@ -13,7 +13,7 @@ void fieldPaint(field* terrain, const int color)
         }
     }
     */
-    fieldPaintPart(terrain, color, 0, terrain->fsize_x, 0, terrain->fsize_y);
+    fieldPaintPart(terrain, color, 0, terrain->fsize_x - 1, 0, terrain->fsize_y - 1);
 }
 
 field* fieldCPaint(const field* terrain, const int color)
