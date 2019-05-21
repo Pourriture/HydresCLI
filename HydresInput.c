@@ -104,7 +104,10 @@ char* fieldInputString(field* source, int posx, int posy, int length)
         dstring[length] = '\0';
 
         tempDisplay = fsFuse(source,dstring,posx, posy, source->fbody[posx][posy].color);
-        tempDisplay->fbody[posx][posy + counter].color = BACKGROUND_WHITE;
+        if (counter < length)
+            tempDisplay->fbody[posx + counter][posy].color = BACKGROUND_WHITE;
+        else
+            tempDisplay->fbody[posx + length - 1][posy].color = BACKGROUND_WHITE;
 
         if (!((input == ERASEKEY) && (counter == 0)))
         {

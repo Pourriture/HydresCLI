@@ -13,14 +13,38 @@ void fieldCDisplay(const field* terrain, const int s_posx, const int e_posx, con
     }
 
     int i, j;
-    for (i = s_posx ; i <= e_posx ; i++)
+    char* display = NULL;
+
+    for (j = s_posy ; j < e_posy ; j++)
     {
-        for (j = s_posy ; j <= e_posy ; j++)
+        display = malloc(sizeof(char) * (e_posx - s_posx + 1));
+        for (i = s_posx ; i < e_posx ; i++)
+        {
+            //putc(terrain->fbody[i][j].caractere,stdout);
+            display[i] = terrain->fbody[s_posx + i][j].caractere;
+        }
+        display[e_posx - s_posx] = '\0';
+
+        fputs(display,stdout);
+        putc('\n',stdout);
+
+        free(display);
+    }
+
+
+    /*
+    for (j = s_posy ; j <= e_posy ; j++)
+    {
+        for (i = s_posx ; i <= e_posx ; i++)
         {
             putc(terrain->fbody[i][j].caractere,stdout);
         }
         putc('\n',stdout);
+
+
     }
+
+    */
 }
 
 void fieldACDisplay(const field* terrain, const int s_posx, const int e_posx, const int s_posy, const int e_posy)
@@ -44,9 +68,9 @@ void fieldACDisplay(const field* terrain, const int s_posx, const int e_posx, co
     }
 
     int i, j;
-    for (i = s_posx ; i <= e_posx ; i++)
+    for (j = s_posy ; j <= e_posy ; j++)
     {
-        for (j = s_posy ; j <= e_posy ; j++)
+        for (i = s_posx ; i <= e_posx ; i++)
         {
             SetConsoleTextAttribute(consoleSc, terrain->fbody[i][j].color);
             putc(terrain->fbody[i][j].caractere,stdout);

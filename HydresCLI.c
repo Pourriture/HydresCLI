@@ -81,14 +81,31 @@ void fieldDestroy(field* terrain)
 
 void fieldDisplay(const field* terrain)
 {
+
+
+
+
     int i, j, size_x = terrain->fsize_x, size_y = terrain->fsize_y;
+
+    char* display = NULL;
+
+
+
+
     for (j = 0 ; j < size_y ; j++)
     {
+        display = malloc(sizeof(char) * (size_x + 1));
         for (i = 0 ; i < size_x ; i++)
         {
-            putc(terrain->fbody[i][j].caractere,stdout);
+            //putc(terrain->fbody[i][j].caractere,stdout);
+            display[i] = terrain->fbody[i][j].caractere;
         }
+        display[size_x] = '\0';
+
+        fputs(display,stdout);
         putc('\n',stdout);
+
+        free(display);
     }
 }
 

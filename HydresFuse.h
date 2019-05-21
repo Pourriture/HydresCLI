@@ -1,6 +1,8 @@
 #ifndef HYDRESFUSE_H_INCLUDED
 #define HYDRESFUSE_H_INCLUDED
 #include "HydresCLI.h"
+#define APPEND_HORIZONTAL 'X'
+#define APPEND_VERTICAL 'Y'
 
 /** renvoit une fusion deux écrans à partir de la position pos_x, pos_y */
 field* fieldFuse(const field* source, const field* aColler, const int pos_x, const int pos_y);

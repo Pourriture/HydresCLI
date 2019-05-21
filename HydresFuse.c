@@ -86,7 +86,7 @@ field* fieldAppendY(const field* sc1, const field* sc2)
 field* fieldAppend(const field* sc1, const field* sc2, const char choix)
 {
     field* resultat = NULL;
-    if ((choix == 'X') || (choix == 'x'))
+    if ((choix == 'X') || (choix == 'x'))       // note : APPEND_HORIZONTAL == 'X'
     {
         resultat = fieldAppendX(sc1, sc2);
     }
