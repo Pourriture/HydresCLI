@@ -28,8 +28,10 @@ int KeyGet();
 /** renvoie le premier caractère qui sera pressé par l'utilisateur */
 int CharGet();
 
-/** renvoie une chaîne de caractères entrée par l'utilisateur, affichée pendant l'input sur l'écran de manière dynamique. énormément de latence. préférez scanf ou fgets */
+/** renvoie une chaîne de caractères entrée par l'utilisateur, affichée pendant l'input sur l'écran de manière dynamique. un peu de latence. préférez scanf ou fgets. si vous n'êtes pas intéressé par la sortie, veuillez utiliser fieldInStr */
 char* fieldInputString(field*, int posx, int posy, int length);
 
+/** fieldInputString, mais sans sortie */
+void fieldInStr(field*, int posx, int posy, int length);
 
 #endif // HYDRESINPUT_H_INCLUDED

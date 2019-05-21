@@ -89,7 +89,7 @@ char* fieldInputString(field* source, int posx, int posy, int length)
 {
     field* tempDisplay = NULL;
     char input = 0, *string = malloc(sizeof(char) * length), *dstring = malloc(sizeof(char) * (length + 1));
-    int loop = 1, counter = 0, i;
+    int loop = 1, counter = 0, i, lastErased = 0;
 
     for (i = 0 ; i < length ; i++)
         string[i] = ' ';
@@ -108,11 +108,13 @@ char* fieldInputString(field* source, int posx, int posy, int length)
         else
             tempDisplay->fbody[posx + length - 1][posy].color = BACKGROUND_WHITE;
 
-        if (!((input == ERASEKEY) && (counter == 0)))
+        if ((!((input == ERASEKEY) && (counter == 0)) && (counter <= length)) || lastErased)
         {
             system("cls");
             fieldADisplay(tempDisplay);
+            lastErased = 0;
         }
+
 
         fieldDestroy(tempDisplay);
 
@@ -140,8 +142,11 @@ char* fieldInputString(field* source, int posx, int posy, int length)
         }
         else if (input == ERASEKEY)
         {
+            if (counter == 1)
+                lastErased = 1;
             if (counter > 0)
                 counter--;
+
             string[counter] = ' ';
         }
         else
@@ -163,5 +168,8 @@ char* fieldInputString(field* source, int posx, int posy, int length)
     return string;
 }
 
-
+void fieldInStr(field* t, int x, int y, int l)
+{
+    free(fieldInputString(t, x,y, l));
+}
 
