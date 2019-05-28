@@ -6,15 +6,11 @@ field* fieldInitialize(const int size_x, const int size_y)
 {
     field* terrain = malloc(sizeof(*terrain));
     short int errset = 0;
-    if (size_x < 1)
+    if ((size_x < 1) || (size_y < 1))
     {
-        fprintf(stdout,"Runtime error : tried to initialize a field with a nil or negative x size (%d)\n",size_x);
-        errset = 1;
-    }
-    if (size_y < 1)
-    {
-        fprintf(stdout,"Runtime error : tried to initialize a field with a nil or negative y size (%d)\n",size_y);
-        errset = 1;
+        herr.x = size_x;
+        herr.y = size_y;
+        HydresErr(err_fieldInitialize_Misc);
     }
     if (errset)
         exit(EXIT_FAILURE);
@@ -22,12 +18,12 @@ field* fieldInitialize(const int size_x, const int size_y)
     terrain->fsize_x = size_x;
     terrain->fsize_y = size_y;
 
-    f_part* ptrToFPart = NULL;
-    terrain->fbody = malloc(sizeof(ptrToFPart) * size_x);
+    terrain->fbody = malloc(sizeof(*(terrain->fbody)) * size_x);
     //printf("Entry point: fbody located at %p\n",terrain->fbody);
-    if (terrain->fbody == NULL)
+    if (!terrain->fbody)
     {
-        fprintf(stdout,"Runtime error : out of memory during field initialization\n");
+        herr.x = sizeof(*(terrain->fbody)) * size_x;
+        HydresErr(err_fieldInitialize_OutOfMemory);
         exit(EXIT_FAILURE);
     }
 
@@ -39,9 +35,10 @@ field* fieldInitialize(const int size_x, const int size_y)
     for (i = 0 ; i < size_x ; i++)
     {
         terrain->fbody[i] = malloc(sizeof(f_part) * size_y);
-        if (terrain->fbody[i] == NULL)
+        if (!terrain->fbody[i])
         {
-            fprintf(stdout,"Runtime error : out of memory during field initialization\n");
+            herr.x = sizeof(f_part) * size_y;
+            HydresErr(err_fieldInitialize_OutOfMemory);
             exit(EXIT_FAILURE);
         }
 
@@ -67,6 +64,10 @@ field* fieldInitialize(const int size_x, const int size_y)
 
 void fieldDestroy(field* terrain)
 {
+    if (!terrain)
+    {
+        HydresErr(err_fieldDestroy);
+    }
     int i;
     for (i = 0 ; i < terrain->fsize_x ; i++)
     {
@@ -82,7 +83,10 @@ void fieldDestroy(field* terrain)
 void fieldDisplay(const field* terrain)
 {
 
-
+    if (!terrain)
+    {
+        HydresErr(err_display_no_source);
+    }
 
 
     int i, j, size_x = terrain->fsize_x, size_y = terrain->fsize_y;
@@ -112,7 +116,8 @@ void fieldDisplay(const field* terrain)
 /*
 field* fieldReInitialize(field* terrain, const int size_x, const int size_y)
 {
-    fieldDestroy(terrain);
+    if (terrain)
+        fieldDestroy(terrain);
     terrain = fieldInitialize(size_x, size_y);
     return terrain;
 }
@@ -120,7 +125,10 @@ field* fieldReInitialize(field* terrain, const int size_x, const int size_y)
 
 field* fieldCopy(const field* source)
 {
-    //printf("fieldCopy called\n");
+    if (!source)
+    {
+        HydresErr(err_copy_no_source);
+    }
 
     int i, j, size_x = source->fsize_x, size_y = source->fsize_y;
     field* target = fieldInitialize(size_x, size_y);

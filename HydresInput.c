@@ -88,6 +88,18 @@ int CharGet()
 char* fieldInputString(field* source, int posx, int posy, int length)
 {
     field* tempDisplay = NULL;
+
+    if (!source)
+    {
+        char *errc = malloc(sizeof(char));
+        if (errc)
+            *errc = '\0';
+        else
+            herr.x = 1;
+        HydresErr(err_inputstring_nosource);
+        return errc;
+    }
+
     char input = 0, *string = malloc(sizeof(char) * length), *dstring = malloc(sizeof(char) * (length + 1));
     int loop = 1, counter = 0, i, lastErased = 0;
 
@@ -154,6 +166,8 @@ char* fieldInputString(field* source, int posx, int posy, int length)
             if (counter >= length)
             {
                 string = realloc(string, sizeof(char) * (counter + 3));
+                if (!string)
+                    HydresErr(err_misc_oom);
             }
 
 
@@ -170,6 +184,6 @@ char* fieldInputString(field* source, int posx, int posy, int length)
 
 void fieldInStr(field* t, int x, int y, int l)
 {
-    free(fieldInputString(t, x,y, l));
+    free(fieldInputString(t, x, y, l));
 }
 

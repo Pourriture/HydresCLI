@@ -84,7 +84,7 @@ void fieldACDisplay(const field* terrain, const int s_posx, const int e_posx, co
                 k = 0;
                 curCol = terrain->fbody[i][j].color;
                 SetConsoleTextAttribute(consoleSc, curCol);
-                curStr = malloc(sizeof(char) * 4 * (e_posx - s_posx));
+                curStr = malloc(sizeof(char) * 4 * (e_posx - s_posx + 2));
             }
             curStr[k] = terrain->fbody[i][j].caractere;
             k++;
@@ -98,7 +98,7 @@ void fieldACDisplay(const field* terrain, const int s_posx, const int e_posx, co
                 k = 0;
                 curCol = terrain->fbody[i][j].color;
                 SetConsoleTextAttribute(consoleSc, curCol);
-                curStr = malloc(sizeof(char) * 4 * (e_posx - s_posx));
+                curStr = malloc(sizeof(char) * 4 * (e_posx - s_posx + 2));
             }
         }
         curStr[k] = '\n';

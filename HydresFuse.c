@@ -2,6 +2,16 @@
 
 field* fieldFuse(const field* source, const field* aColler, const int pos_x, const int pos_y)
 {
+    if (!source || !aColler)
+    {
+
+        if (!source)
+            herr.x |= 1;
+        if (!aColler)
+            herr.x |= 2;
+        HydresErr(err_fuse_nosource);
+    }
+
 
     field* resultat = NULL;
     resultat = fieldCopy(source);
@@ -9,7 +19,12 @@ field* fieldFuse(const field* source, const field* aColler, const int pos_x, con
 
     if ((limcut_x > source_sx) || (limcut_y > source_sy))
     {
-        printf("Error fusing fields: pasted element is misplaced or too big for the target (x %d > sx %d or y %d > sy %d)\n",limcut_x,source_sx,limcut_y,source_sy);
+        herr.t[0] = limcut_x;
+        herr.t[1] = source_sx;
+        herr.t[2] = limcut_y;
+        herr.t[3] = source_sy;
+        herr.err = errtag_sfuse;
+        HydresErr(err_fuse_size);
         return resultat;
     }
 
@@ -32,6 +47,16 @@ field* fieldFuse(const field* source, const field* aColler, const int pos_x, con
 
 field* fieldFuseST(const field* source, const field* aColler, const int pos_x, const int pos_y)
 {
+    if (!source || !aColler)
+    {
+        herr.x |= 4;
+        if (!source)
+            herr.x |= 1;
+        if (!aColler)
+            herr.x |= 2;
+        HydresErr(err_fuse_nosource);
+    }
+
 
     field* resultat = NULL;
     resultat = fieldCopy(source);
@@ -39,7 +64,12 @@ field* fieldFuseST(const field* source, const field* aColler, const int pos_x, c
 
     if ((limcut_x > source_sx) || (limcut_y > source_sy))
     {
-        printf("Error STfusing fields: pasted element is misplaced or too big for the target (x %d > sx %d or y %d > sy %d)\n",limcut_x,source_sx,limcut_y,source_sy);
+        herr.t[0] = limcut_x;
+        herr.t[1] = source_sx;
+        herr.t[2] = limcut_y;
+        herr.t[3] = source_sy;
+        herr.err = errtag_stfuse;
+        HydresErr(err_fuse_size);
         return resultat;
     }
 
@@ -85,6 +115,13 @@ field* fieldAppendY(const field* sc1, const field* sc2)
 
 field* fieldAppend(const field* sc1, const field* sc2, const char choix)
 {
+    if (!sc1 || !sc2)
+    {
+        herr.x |= ((!sc1)*1 + (!sc2)*2);
+        HydresErr(err_append_nosource);
+    }
+
+
     field* resultat = NULL;
     if ((choix == 'X') || (choix == 'x'))       // note : APPEND_HORIZONTAL == 'X'
     {

@@ -3,9 +3,9 @@
 field* fieldFromFile(const char* filename)
 {
     FILE* fichier = fopen(filename, "r");
-    if (fichier == NULL)
+    if (!fichier)
     {
-        fprintf(stderr,"Runtime error: out of memory during file opening\n");
+        HydresErr(S_ERR);
         exit(EXIT_FAILURE);
     }
     rewind(fichier);
@@ -77,6 +77,11 @@ field* fieldFromFile(const char* filename)
 void fieldToFile(const char* filename, const field* terrain, const int color)
 {
     FILE* fichier = fopen(filename,"w+");
+    if (!fichier)
+    {
+        HydresErr(S_ERR);
+        return;
+    }
     int size_x = terrain->fsize_x, size_y = terrain->fsize_y, i, j;
     fprintf(fichier,"N %d %d %d\n",size_x, size_y, color);
     for(j = 0 ; j < size_y ; j++)
@@ -94,6 +99,11 @@ void fieldToFile(const char* filename, const field* terrain, const int color)
 void fieldCToFile(const char* filename, const field* terrain)
 {
     FILE* fichier = fopen(filename, "w+");
+    if (!fichier)
+    {
+        HydresErr(S_ERR);
+        return;
+    }
     int size_x = terrain->fsize_x, size_y = terrain->fsize_y, i, j;
     fprintf(fichier,"C %d %d %d\n", size_x, size_y, DEFAULT_F_PART_COLOR);
     for(j = 0 ; j < size_y ; j++)

@@ -2,6 +2,7 @@
 #define HYDRESCLI_H_INCLUDED
 #include <stdio.h>
 #include <stdlib.h>
+#include "HydresErr.h"
 typedef struct f_part f_part;
 typedef struct field field;
 #define DEFAULT_F_PART_CHAR 'I'
