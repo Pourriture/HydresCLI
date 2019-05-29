@@ -7,7 +7,7 @@ void conditioninitial(int TELEVE[],int TPROFESSEUR[],int THEURE[],int *pointeurx
  int i=0;
  for (i=0;i<*pointeurx;i++)
  {
-   printf("combien y a t il d'eleve dans la %i salle\n",(i+1));
+   printf("combien y a t il d'eleve dans la salle %i\n",(i+1));
    scanf("%i",&TELEVE[i]);
  }
  for (i=0;i<*pointeury;i++)
