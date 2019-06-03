@@ -1,0 +1,109 @@
+// Avertissement : Ceci est un fichier destiné à l'exposition de code. Le code exposé  ici n'est pas garanti de fonctionner.
+
+#include "s_timetable.h"
+
+
+
+void timetable_Do();
+void getDataList(int *uvNum, int *profNum, int *salleNum, int *groupeNum);
+void UV_Init(UV_def *UV, int n);
+void salle_Init(salle *room, int n);
+void groupe_Init(groupe *grp, int n, const UV_list *list);
+void prof_Init(professeur *prof, int n, const UV_list *list);
+UV_def* findUV(const UV_list *list, long ID);
+
+
+void timetable_Do()
+{
+    int uvNum, profNum, salleNum, groupeNum;
+    getDataList(&uvNum, &profNum, &salleNum, &groupeNum);
+
+    UV_list UVlist;
+
+    int i;
+
+    // premièrement : on initialise les UVs
+    UVlist.list = malloc(uvNum * sizeof(*UVlist.list));
+    for (i = 0 ; i < uvNum ; i++)
+        UV_Init(UVlist.list + i * sizeof(*UVlist.list), i);
+        // Envoyer UVlist[i] ferait faire copier au programme ce qui est situé à l'adresse pointée par UVlist + i * sizeof(*UVlist), ce qui signifie que l'UV que l'on cherche à modifier ne le sera pas. Pour éviter ce problème, on envoie comme argument l'adresse de l'élément UVlist[i].
+
+
+    // deuxièmement : on initialise les salles
+    salle *salleList = malloc(salleNum * sizeof(*salleList));
+    for (i = 0 ; i < salleNum ; i++)
+        salle_Init(salleList + i * sizeof(*salleList), i);
+
+    // troisièmement : on initialise les groupes
+    groupe *groupeList = malloc(sizeof(*groupeList) * groupeNum);
+    for (i = 0 ; i < groupeNum ; i++)
+        groupe_Init(groupeList + i * sizeof(*groupeList), i, &UVlist);
+
+    // quatrièmement : on initialise les professeurs
+    professeur *profList = malloc(sizeof(*profList) * profNum);
+    for (i = 0 ; i < profNum ; i++)
+        prof_Init(profList + i * sizeof(*profList), i, &UVlist);
+
+
+
+    /*
+        work
+
+
+    */
+
+
+    // gotta delete stuff then!
+
+}
+
+void getDataList(int *u, int *p, int *s, int *g)
+{
+    // Initializes values of u, p, s and g depending on either user input or obtained file
+}
+
+void UV_Init(UV_def *UV, int n)
+{
+    // Initialise une salle selon un fichier entrée contenant des IDs (on reconnaîtra le bon ID grâce au paramètre n) et sa correspondance dans la base de données
+    // Une fois ceci fait, sachant que les professeurs sont initialisés après les UVs :
+
+
+    UV->ntCM = 0;
+    UV->ntTD = 0;
+    UV->ntTP = 0;
+    UV->tCM = NULL;
+    UV->tTD = NULL;
+    UV->tTP = NULL;
+
+}
+
+void salle_Init(salle *room, int n)
+{
+    // Initialise une salle selon un fichier entrée contenant des IDs (on reconnaîtra le bon ID grâce au paramètre n) et sa correspondance dans la base de données
+
+}
+
+void groupe_Init(groupe *grp, int n, const UV_list *list)
+{
+    // Initialise un groupe selon un fichier entrée contenant des IDs (on reconnaîtra le bon ID grâce au paramètre n) et sa correspondance dans la base de données
+    // On utilisera une fonction findUV(const *UV_list list, long ID) pour récupérer les pointeurs vers les bons éléments de la liste et les stocker dans grp->choixUV
+
+}
+
+void prof_Init(professeur *prof, int n, const UV_list *list)
+{
+    // Initialise un professeur selon un fichier entrée contenant des IDs (on reconnaîtra le bon ID grâce au paramètre n) et sa correspondance dans la base de données
+    // On utilisera une fonction findUV(const *UV_list list, long ID) pour récupérer les pointeurs vers les bons éléments de la liste et les stocker dans prof->uCM, prof->uTD, prof->uTP
+
+}
+
+UV_def* findUV(const UV_list *list, long ID)
+{
+    int i;
+    for (i = 0 ; i < list->size ; i++)
+    {
+        if (list->list[i].ID == ID)
+            return &(list->list[i]);
+    }
+    return NULL;
+}
