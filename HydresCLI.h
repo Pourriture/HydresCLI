@@ -2,13 +2,15 @@
 #define HYDRESCLI_H_INCLUDED
 #include <stdio.h>
 #include <stdlib.h>
+#include "HydresSettings.h"
 #include "HydresErr.h"
 typedef struct f_part f_part;
 typedef struct field field;
-#define DEFAULT_F_PART_CHAR 'I'
-#define DEFAULT_F_PART_COLOR 2
 
-#define DEBUG
+
+
+
+
 
 /** Renvoie un pointeur vers un écran (field), lui attribue une taille et un tableau bidimensionnel.
 la constante d'initialisation de chacune des cellules est défine par DEFAULT_F_PART_CHAR et DEFAULT_F_PART_COLOR. */

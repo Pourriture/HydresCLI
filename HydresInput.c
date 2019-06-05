@@ -85,7 +85,7 @@ int CharGet()
     return loop;
 }
 
-char* fieldInputString(field* source, int posx, int posy, int length)
+char* fieldInputString(field* source, int posx, int posy, int length, int crop)
 {
     field* tempDisplay = NULL;
 
@@ -182,8 +182,8 @@ char* fieldInputString(field* source, int posx, int posy, int length)
     return string;
 }
 
-void fieldInStr(field* t, int x, int y, int l)
+void fieldInStr(field* t, int x, int y, int l, int c)
 {
-    free(fieldInputString(t, x, y, l));
+    free(fieldInputString(t, x, y, l, c));
 }
 

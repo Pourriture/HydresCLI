@@ -2,17 +2,24 @@
 #define HYDRESERR_H_INCLUDED
 
 #ifndef HYDRESCLI_H_INCLUDED // what to include for HydresErr.c
-#include <stdio.h>
-#include <stdlib.h>
-#include <errno.h>
-#include <string.h>
+    #include <stdio.h>
+    #include <stdlib.h>
+    #include <errno.h>
+    #include <string.h>
 #endif
-
-#define errstream stderr
-#define version Hydres Pre1.4 - Snapshot 0
+#include "HydresSettings.h"
 
 
+
+/** Renvoie le numéro de la dernière erreur Hydres (0 si aucune erreur ne s'est produite) */
+int HydresErrNo();
+
+/** Fonction à usage interne : inscrit les erreurs Hydres dans le stream errstream au fur et à mesure qu'elles se produisent */
 void HydresErr(int no);
+
+/** Utilisez cette fonction si vous avez défini un nouveau stream pour les erreurs */
+void initErrStream();
+
 
 
 #define SIZE_HERR_T 5

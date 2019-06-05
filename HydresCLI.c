@@ -4,7 +4,7 @@
 
 field* fieldInitialize(const int size_x, const int size_y)
 {
-    field* terrain = malloc(sizeof(*terrain));
+
     short int errset = 0;
     if ((size_x < 1) || (size_y < 1))
     {
@@ -13,10 +13,18 @@ field* fieldInitialize(const int size_x, const int size_y)
         HydresErr(err_fieldInitialize_Misc);
     }
     if (errset)
-        exit(EXIT_FAILURE);
+        return NULL;
+
+    field* terrain = malloc(sizeof(*terrain));
+    if (!terrain)
+    {
+        HydresErr(err_fieldInitialize_OutOfMemory);
+    }
 
     terrain->fsize_x = size_x;
     terrain->fsize_y = size_y;
+
+
 
     terrain->fbody = malloc(sizeof(*(terrain->fbody)) * size_x);
     //printf("Entry point: fbody located at %p\n",terrain->fbody);
@@ -24,23 +32,25 @@ field* fieldInitialize(const int size_x, const int size_y)
     {
         herr.x = sizeof(*(terrain->fbody)) * size_x;
         HydresErr(err_fieldInitialize_OutOfMemory);
-        exit(EXIT_FAILURE);
     }
-
     terrain->fsize_x = size_x;
     terrain->fsize_y = size_y;
+
 
 
     int i,j;
     for (i = 0 ; i < size_x ; i++)
     {
+
+
+
         terrain->fbody[i] = malloc(sizeof(f_part) * size_y);
         if (!terrain->fbody[i])
         {
             herr.x = sizeof(f_part) * size_y;
             HydresErr(err_fieldInitialize_OutOfMemory);
-            exit(EXIT_FAILURE);
         }
+
 
         for (j = 0 ; j < size_y ; j++)
         {

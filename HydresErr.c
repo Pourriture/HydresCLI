@@ -1,8 +1,11 @@
 #include "HydresErr.h"
 static void HydresErrSwitch (int no);
+static int __Hydres_errno = 0;
+static FILE* customErr = NULL;
 
 void HydresErr(int no)
 {
+    __Hydres_errno = no;
     fputs(DEFAULT_ERR_MESS,errstream);
     HydresErrSwitch(no);
     herr.x = 0;
@@ -26,6 +29,8 @@ static void HydresErrSwitch(int no)
         break;
     case err_fieldInitialize_OutOfMemory:
         fprintf(errstream, "fieldInitialize ran out of usable memory (allocation attempt : %d bytes)",herr.x);
+        HydresErrSwitch(S_ERR);
+        exit(EXIT_FAILURE);
         break;
     case err_fieldInitialize_Misc:
         fprintf(errstream, "fieldInitialize() attempt to create a negative-size : x %d or y %d", herr.x, herr.y);
@@ -92,6 +97,17 @@ static void HydresErrSwitch(int no)
 
 }
 
+int HydresErrNo()
+{
+    return __Hydres_errno;
+}
 
+void initErrStream()
+{
+    if (errstream != stderr)
+    {
+        customErr = fopen(errstreamName, "a");
 
+    }
+}
 
