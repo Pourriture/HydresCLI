@@ -1,13 +1,46 @@
 #ifndef S_TIMETABLE_H_INCLUDED
 #define S_TIMETABLE_H_INCLUDED
 
+#define MAX_FILENAME_LENGTH 31
+
+typedef struct timetable timetable;
 typedef struct groupe groupe;
 typedef struct UV_def UV_def;
 typedef struct professeur professeur;
 typedef struct edt_part edt_part;
 typedef struct salle salle;
+typedef struct UV_list UV_list;
 typedef enum Ejour Ejour;
 typedef enum Tuv Tuv;
+
+struct UV_list
+{
+    int size;
+    UV_def *list;
+};
+
+struct // Structure (type non nommée) globale, stocke les paramètres
+{
+    UV_list UVlist;
+    char UVIDList_Name[MAX_FILENAME_LENGTH];
+    int profNum;
+    char TchrIDList_Name[MAX_FILENAME_LENGTH];
+    int salleNum;
+    char RoomIDList_Name[MAX_FILENAME_LENGTH];
+    int groupeNum;
+    char GrpIDList_Name[MAX_FILENAME_LENGTH];
+
+
+} settings;
+
+struct timetable
+{
+    long owner;
+    edt_part* edt[96*5];
+};
+
+
+
 
 enum Ejour
 {
