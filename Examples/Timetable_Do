@@ -1,11 +1,7 @@
 // Avertissement : Ceci est un fichier destiné à l'exposition de code. Le code exposé  ici n'est pas garanti de fonctionner.
 
-#include "s_timetable.h"
-
-
-
 void timetable_Do();
-void getDataList(int *uvNum, int *profNum, int *salleNum, int *groupeNum);
+void getDataList(void);
 void UV_Init(UV_def *UV, int n);
 void salle_Init(salle *room, int n);
 void groupe_Init(groupe *grp, int n, const UV_list *list);
@@ -15,34 +11,33 @@ UV_def* findUV(const UV_list *list, long ID);
 
 void timetable_Do()
 {
-    int uvNum, profNum, salleNum, groupeNum;
-    getDataList(&uvNum, &profNum, &salleNum, &groupeNum);
 
-    UV_list UVlist;
+    getDataList(/* settings */);
+
 
     int i;
 
     // premièrement : on initialise les UVs
-    UVlist.list = malloc(uvNum * sizeof(*UVlist.list));
-    for (i = 0 ; i < uvNum ; i++)
-        UV_Init(UVlist.list + i * sizeof(*UVlist.list), i);
+    settings.UVlist.list = malloc(settings.UVlist.size * sizeof(*settings.UVlist.list));
+    for (i = 0 ; i < settings.UVlist.size ; i++)
+        UV_Init(&settings.UVlist.list[i] , i);
         // Envoyer UVlist[i] ferait faire copier au programme ce qui est situé à l'adresse pointée par UVlist + i * sizeof(*UVlist), ce qui signifie que l'UV que l'on cherche à modifier ne le sera pas. Pour éviter ce problème, on envoie comme argument l'adresse de l'élément UVlist[i].
 
 
     // deuxièmement : on initialise les salles
-    salle *salleList = malloc(salleNum * sizeof(*salleList));
-    for (i = 0 ; i < salleNum ; i++)
-        salle_Init(salleList + i * sizeof(*salleList), i);
+    salle *salleList = malloc(settings.salleNum * sizeof(*salleList));
+    for (i = 0 ; i < settings.salleNum ; i++)
+        salle_Init(&salleList[i], i);
 
     // troisièmement : on initialise les groupes
-    groupe *groupeList = malloc(sizeof(*groupeList) * groupeNum);
-    for (i = 0 ; i < groupeNum ; i++)
-        groupe_Init(groupeList + i * sizeof(*groupeList), i, &UVlist);
+    groupe *groupeList = malloc(sizeof(*groupeList) * settings.groupeNum);
+    for (i = 0 ; i < settings.groupeNum ; i++)
+        groupe_Init(&groupeList[i], i, &settings.UVlist);
 
     // quatrièmement : on initialise les professeurs
-    professeur *profList = malloc(sizeof(*profList) * profNum);
-    for (i = 0 ; i < profNum ; i++)
-        prof_Init(profList + i * sizeof(*profList), i, &UVlist);
+    professeur *profList = malloc(sizeof(*profList) * settings.profNum);
+    for (i = 0 ; i < settings.profNum ; i++)
+        prof_Init(&profList[i], i, &settings.UVlist);
 
 
 
@@ -54,12 +49,16 @@ void timetable_Do()
 
 
     // gotta delete stuff then!
+    free(profList);
+    free(groupeList);
+    free(salleList);
+    free(settings.UVlist.list);
 
 }
 
-void getDataList(int *u, int *p, int *s, int *g)
+void getDataList(/* settings */)
 {
-    // Initializes values of u, p, s and g depending on either user input or obtained file
+    // Initialise les valeurs de settings ?
 }
 
 void UV_Init(UV_def *UV, int n)
@@ -107,3 +106,4 @@ UV_def* findUV(const UV_list *list, long ID)
     }
     return NULL;
 }
+
