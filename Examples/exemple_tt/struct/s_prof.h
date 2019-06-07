@@ -11,8 +11,9 @@
 
 struct professeur
 {
-    long ID;
-    short int hoursLeft;
+    long ID;                // sauver
+    char name[30];          // sauver
+    short int hoursLeft;    // sauver (heures max d'un prof)
     short int nuCM, nuTD, nuTP;
     UV_def *uCM, *uTD, *uTP;
 };

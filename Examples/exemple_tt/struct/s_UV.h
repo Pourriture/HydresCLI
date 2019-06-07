@@ -22,9 +22,9 @@ enum Tuv
 
 struct UV_def
 {
-    long ID;
-    char name[5];
-    char hCM, hTD, hTP;     // actually a number, stored in 8 bits for type preserving when writing in files
+    long ID;                // sauver
+    char name[5];           // sauver
+    char hCM, hTD, hTP;     // sauver
     int ntCM, ntTD, ntTP;
     professeur *tCM, *tTD, *tTP;
 };

@@ -6,6 +6,7 @@
 #include "../include.h"
 
 
+
 struct // Structure (type non nommé) globale, stocke les paramètres dans un format simple et facile à obtenir
 {
     UV_list UVlist;
@@ -16,7 +17,7 @@ struct // Structure (type non nommé) globale, stocke les paramètres dans un form
     char RoomIDList_Name[MAX_FILENAME_LENGTH];
     int groupeNum;
     char GrpIDList_Name[MAX_FILENAME_LENGTH];
-    char allowedDays;
+    char allowedDays;               // tag pour mémoriser les jours
 
 
 } settings;

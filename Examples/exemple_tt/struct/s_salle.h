@@ -4,10 +4,10 @@ typedef struct salle salle;
 
 struct salle
 {
-    char name[5];
-    long ID;
-    short int capacity;
-    short int tags;
+    long ID;                // sauver
+    char name[5];           // sauver
+    short int capacity;     // sauver
+    short int tags;         // sauver
 };
                         // tags d'une salle :
                         // bit 0 : la salle est-elle capable d'accueillir un CM
