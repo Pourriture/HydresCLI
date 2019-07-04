@@ -25,25 +25,34 @@ field* fieldFromFile(const char* filename)
     {
 
 
+
         for(j = 0 ; j < size_y ; j++)
         {
             for (i = 0 ; i < size_x ; i++)
             {
                 current = getc(fichier);
+
+
+
                 if ((current == '\n') || (current == EOF))
                 {
                     for (i = i ; i < size_x ; i++)
                     {
                         terrain->fbody[i][j].caractere = ' ';
+                        terrain->fbody[i][j].color = color;
+
                     }
                 }
                 else
                     terrain->fbody[i][j].caractere = current;
 
+
             }
-            terrain->fbody[i][j].color = color;
+
             if (current != '\n')
                 current = getc(fichier);
+            if (current == EOF)
+                break;
         }
     }
     else if (colorStatus == 'C')
@@ -52,7 +61,7 @@ field* fieldFromFile(const char* filename)
         {
             for (i = 0 ; i < size_x ; i++)
             {
-                fscanf(fichier,"%c%d",&current,&color);
+                fscanf(fichier,"%c'%d'",&current,&color);
                 if ((current == '\n') || (current == EOF))
                 {
                     for (i = i ; i < size_x ; i++)
@@ -110,7 +119,7 @@ void fieldCToFile(const char* filename, const field* terrain)
     {
         for (i = 0 ; i < size_x ; i++)
         {
-            fprintf(fichier,"%c%d",terrain->fbody[i][j].caractere,terrain->fbody[i][j].color);
+            fprintf(fichier,"%c'%d'",terrain->fbody[i][j].caractere,terrain->fbody[i][j].color);
         }
         putc('\n', fichier);
     }

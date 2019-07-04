@@ -2,7 +2,7 @@
 #define HYDRESSETTINGS_H_INCLUDED
 
 #define DEBUG
-#define version Hydres Pre2.0 - Snapshot 0
+#define version Hydres Pre2.1 - Snapshot 0
 #define errstream stderr                    // define to customErr if you wish to use an alternate name
 #define errstreamName "defaulterr.txt"      // custom errstream name
 
